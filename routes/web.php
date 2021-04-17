@@ -100,3 +100,25 @@ Route::get('/model', function () {
 
     return $product->categories;
 });
+
+Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function (){
+
+    Route::prefix('stores')->name('stores.')->group(function (){
+        Route::get('/','StoreController@index')->name('index');;
+        Route::get('/create','StoreController@create')->name('create');;
+        Route::post('/create','StoreController@store')->name('store');;
+        Route::get('/{store}/edit','StoreController@edit')->name('edit');
+        Route::post('/update/{store}','StoreController@update')->name('update');;
+        Route::get('/destroy/{store}','StoreController@destroy')->name('destroy');;;
+    });
+
+    Route::prefix('products')->name('products.')->group(function (){
+        Route::get('/','ProductController@index')->name('index');;
+        Route::get('/create','ProductController@create')->name('create');;
+        Route::post('/create','ProductController@store')->name('store');;
+        Route::get('/{product}/edit','ProductController@edit')->name('edit');
+        Route::post('/update/{product}','ProductController@update')->name('update');;
+        Route::get('/destroy/{product}','ProductController@destroy')->name('destroy');;;
+    });
+
+});
