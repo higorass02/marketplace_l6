@@ -145,9 +145,13 @@ Route::get('/teste',function (){
     exit();
 })->name('teste');
 
-Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function (){
-    Route::resource('stores','StoreController');
-    Route::resource('products','ProductsController');
+Route::group(['middleware' => ['auth']],function (){
+    Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
+        Route::resource('stores', 'StoreController');
+        Route::resource('products', 'ProductsController');
+    });
+});
+
 //    Route::prefix('stores')->name('stores.')->group(function (){
 //        Route::get('/','StoreController@index')->name('index');;
 //        Route::get('/create','StoreController@create')->name('create');;
@@ -166,4 +170,6 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function (){
 //        Route::delete('/destroy/{product}','ProductController@destroy')->name('destroy');
 //    });
 
-});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
