@@ -1,11 +1,12 @@
 @extends('layouts.app')
 @section('content')
-    <a href="{{route('admin.stores.create')}}" class="btn btn-success btl-lg">Criar Produto</a>
+    <a href="{{route('admin.products.create')}}" class="btn btn-success btl-lg">Criar Produto</a>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Loja</th>
+                <th>Produto</th>
+                <th>Preço</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -14,9 +15,18 @@
                 <tr>
                     <td>{{$product->id}}</td>
                     <td>{{$product->name}}</td>
+                    <td>R$ {{ number_format($product->price,2,',','.') }}</td>
                     <td>
-                        <a href="{{route('admin.stores.edit',['store'=>$product->id])}}" class="btn btn-sm btn-info">Editar</a>
-                        <a href="{{route('admin.stores.destroy',['store'=>$product->id])}}" class="btn btn-sm btn-danger">Deletar</a>
+                        <div class="btn-group">
+                            <a href="{{route('admin.products.edit',['product'=>$product->id])}}" class="btn btn-sm btn-info">Editar</a>
+                            <form action="{{route('admin.products.destroy',['product'=>$product->id])}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-sm btn-danger">Deletar</button>
+                            </form>
+                        </div>
+
+
                     </td>
                 </tr>
             @endforeach

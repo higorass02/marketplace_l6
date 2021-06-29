@@ -1,49 +1,52 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Editar Loja</h1>
+    <h1>Editar Produto</h1>
 
-    <form action="{{route('admin.stores.update',['store'=>$store->id])}}/" method="post">
-        <input type="hidden" value="{{csrf_token()}}" name="_token">
-
+    <form action="{{route('admin.products.update',['product'=>$product->id])}}/" method="post">
+{{--        <input type="hidden" value="{{csrf_token()}}" name="_token">--}}
+{{--        <input type="hidden" name="_method" value="PUT">--}}
+        @csrf
+        @method('PUT')
         <div class="form-group">
-            <label for="">Nome da Loja</label>
-            <input class="form-control" type="text" name="name" id="name" value="{{$store->name}}">
+            <label for="">Nome do Produto</label>
+            <input class="form-control" type="text" name="name" id="name" value="{{$product->name}}">
         </div>
 
         <div class="form-group">
             <label for="">Descrição</label>
-            <input class="form-control" type="text" name="description" id="description" value="{{$store->description}}">
+            <input class="form-control" type="text" name="description" id="description" value="{{$product->description}}">
         </div>
 
         <div class="form-group">
-            <label for="">Telefone</label>
-            <input class="form-control" type="text" name="phone" id="phone" value="{{$store->phone}}">
+            <label for="">Conteúdo</label>
+            <textarea class="form-control" name="body" id="body" cols="30" rows="10">{{$product->body}}</textarea>
         </div>
 
         <div class="form-group">
-            <label for="">Celular/Whattsup</label>
-            <input class="form-control" type="text" name="mobile_phone" id="mobile_phone" value="{{$store->mobile_phone}}">
+            <label for="">Preço</label>
+            <input class="form-control" type="text" name="price" id="price" value="{{$product->price}}">
         </div>
-
 
         <div class="form-group">
             <label for="">Slug</label>
-            <input class="form-control" type="text" name="slug" id="slug" value="{{$store->slug}}">
+            <input class="form-control" type="text" name="slug" id="slug" value="{{$product->slug}}">
         </div>
 
 {{--        <div class="form-group">--}}
-{{--            <label for="">Usuário</label>--}}
-{{--            <select class="form-control" name="user" id="">--}}
-{{--                @foreach($users as $user)--}}
-{{--                    <option value="{{$user->id}}">{{$user->name}}</option>--}}
+{{--            <label for="">Lojas</label>--}}
+{{--            <select class="form-control" name="store" id="store">--}}
+{{--                @foreach($stores as $store)--}}
+{{--                    <option--}}
+{{--                        @if ($product->stores == $store) {{'seleted'}} @endif --}}
+{{--                        value="{{$store->id}}">{{$store->name}}</option>--}}
 {{--                @endforeach--}}
 {{--            </select>--}}
 {{--        </div>--}}
 
         <div class="form-group">
             <button type="submit" class="btn-success btn-lg">
-                Atualizar Loja
+                Atualizar Produto
             </button>
         </div>
     </form>

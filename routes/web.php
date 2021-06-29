@@ -101,24 +101,69 @@ Route::get('/model', function () {
     return $product->categories;
 });
 
+Route::get('/teste',function (){
+//    /** @var User $user */
+//    $user = User::find(1);
+//    $store = $user->store()->create([
+//        'name' => 'Loja Teste',
+//        'description' => 'asda',
+//        'mobile_phone' => '1231',
+//        'phone' => '321',
+//        'slug' => 'asd'
+//    ]);
+//    dd($store);
+
+//    /** @var \App\Store $store */
+//    $store = \App\Store::find(6);
+//    $product = $store->products()->create([
+//        'name' => 'produto Teste',
+//        'description' => 'asda',
+//        'body' => '1231',
+//        'price' => 10.90,
+//        'slug' => 'asd'
+//    ]);
+//    dd($product);
+
+//    $category = \App\Category::create([
+//        'name'=>'categoria 1',
+//        'description'=>'asd',
+//        'slug'=>'qwe',
+//    ]);
+//
+//    $category = \App\Category::create([
+//        'name'=>'categoria 2',
+//        'description'=>'asd2',
+//        'slug'=>'qwe2',
+//    ]);
+
+//    return \App\Category::all();
+    /** @var \App\Product $product */
+    $product = \App\Product::find(6);
+    //dd($product->categories()->detach([1]));
+    dd($product->categories()->sync([1]));
+
+    exit();
+})->name('teste');
+
 Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function (){
+    Route::resource('stores','StoreController');
+    Route::resource('products','ProductsController');
+//    Route::prefix('stores')->name('stores.')->group(function (){
+//        Route::get('/','StoreController@index')->name('index');;
+//        Route::get('/create','StoreController@create')->name('create');;
+//        Route::post('/create','StoreController@store')->name('store');;
+//        Route::get('/{store}/edit','StoreController@edit')->name('edit');
+//        Route::post('/update/{store}','StoreController@update')->name('update');;
+//        Route::get('/destroy/{store}','StoreController@destroy')->name('destroy');;;
+//    });
 
-    Route::prefix('stores')->name('stores.')->group(function (){
-        Route::get('/','StoreController@index')->name('index');;
-        Route::get('/create','StoreController@create')->name('create');;
-        Route::post('/create','StoreController@store')->name('store');;
-        Route::get('/{store}/edit','StoreController@edit')->name('edit');
-        Route::post('/update/{store}','StoreController@update')->name('update');;
-        Route::get('/destroy/{store}','StoreController@destroy')->name('destroy');;;
-    });
-
-    Route::prefix('products')->name('products.')->group(function (){
-        Route::get('/','ProductController@index')->name('index');;
-        Route::get('/create','ProductController@create')->name('create');;
-        Route::post('/create','ProductController@store')->name('store');;
-        Route::get('/{product}/edit','ProductController@edit')->name('edit');
-        Route::post('/update/{product}','ProductController@update')->name('update');;
-        Route::get('/destroy/{product}','ProductController@destroy')->name('destroy');;;
-    });
+//    Route::prefix('products')->name('products.')->group(function (){
+//        Route::get('/','ProductController@index')->name('index');
+//        Route::get('/create','ProductController@create')->name('create');
+//        Route::post('/create','ProductController@store')->name('store');
+//        Route::get('/{product}/edit','ProductController@edit')->name('edit');
+//        Route::put('/update/{product}','ProductController@update')->name('update');
+//        Route::delete('/destroy/{product}','ProductController@destroy')->name('destroy');
+//    });
 
 });

@@ -14,7 +14,7 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $stores = \App\Store::paginate(4);
+        $stores = \App\Store::paginate(10);
         //return $store;
         return view('admin.stores.index',compact('stores'));
     }
@@ -50,17 +50,6 @@ class StoreController extends Controller
         return redirect()->route('admin.stores.index');
 
     }
-
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param  int  $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function show($id)
-//    {
-//        //
-//    }
 
     /**
      * @param $id

@@ -8,7 +8,7 @@ class Store extends Model
 {
     protected $table = 'stores';
 
-    protected $fillable = ['*'];
+    protected $fillable = ['name','description','phone','mobile_phone','slug'];
 
     protected $hidden = [];
 

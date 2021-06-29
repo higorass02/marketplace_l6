@@ -3,11 +3,11 @@
 @section('content')
     <h1>Criar Loja</h1>
 
-    <form action="{{route('admin.stores.store')}}" method="post">
+    <form action="{{route('admin.products.store')}}" method="post">
         <input type="hidden" value="{{csrf_token()}}" name="_token">
 
         <div class="form-group">
-            <label for="">Nome da Loja</label>
+            <label for="">Nome do Produto</label>
             <input class="form-control" type="text" name="name" id="name">
         </div>
 
@@ -17,15 +17,14 @@
         </div>
 
         <div class="form-group">
-            <label for="">Telefone</label>
-            <input class="form-control" type="text" name="phone" id="phone">
+            <label for="">Conteúdo</label>
+            <textarea class="form-control" name="body" id="body" cols="30" rows="10"></textarea>
         </div>
 
         <div class="form-group">
-            <label for="">Celular/Whattsup</label>
-            <input class="form-control" type="text" name="mobile_phone" id="mobile_phone">
+            <label for="">Preço</label>
+            <input class="form-control" type="text" name="price" id="price">
         </div>
-
 
         <div class="form-group">
             <label for="">Slug</label>
@@ -33,17 +32,17 @@
         </div>
 
         <div class="form-group">
-            <label for="">Usuário</label>
-            <select class="form-control" name="user" id="">
-                @foreach($users as $user)
-                    <option value="{{$user->id}}">{{$user->name}}</option>
+            <label for="">Lojas</label>
+            <select class="form-control" name="store" id="store">
+                @foreach($stores as $store)
+                    <option value="{{$store->id}}">{{$store->name}}</option>
                 @endforeach
             </select>
         </div>
 
         <div class="form-group">
             <button type="submit" class="btn-success btn-lg">
-                Cadastrar Loja
+                Cadastrar Produto
             </button>
         </div>
     </form>

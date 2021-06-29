@@ -44,16 +44,9 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
+        /** @var Store $store */
         $store = Store::find($data['store']);
-
-        $new_prod= new Store();
-        $new_prod->name = $data['name'];
-        $new_prod->description = $data['description'];
-        $new_prod->body = $data['body'];
-        $new_prod->price = $data['price'];
-        $new_prod->slug = $data['slug'];
-
-        $store = $store->product()->save($new_prod);
+        $store->products()->create($data);
 
         flash('Produto Criado com Sucesso')->success();
         return redirect()->route('admin.products.index');
@@ -67,9 +60,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-
-        return view('admin.products.edit',compact('product'));
+        $product = Product::findOrFail($id);
+        $stores = Store::all();
+        return view('admin.products.edit',compact('product','stores'));
     }
 
     /**
@@ -81,17 +74,8 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
-        $store = Store::find($data['store']);
-
-        $new_prod= Product::find($id);
-
-        $new_prod->name = $data['name'];
-        $new_prod->description = $data['description'];
-        $new_prod->body = $data['body'];
-        $new_prod->price = $data['price'];
-        $new_prod->slug = $data['slug'];
-
-        $store = $store->product()->save($new_prod);
+        $products = Product::findOrFail($id);
+        $products->update($data);
 
         flash('Produto Alterado com Sucesso')->success();
         return redirect()->route('admin.products.index');
@@ -105,6 +89,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $products = $this->product->findOrFail($id);
+        $products->delete();
+
+        flash('Produto Excluido com Sucesso')->success();
+        return redirect()->route('admin.products.index');
     }
 }
