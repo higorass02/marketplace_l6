@@ -36,19 +36,12 @@ class StoreController extends Controller
     {
         $data = $request->all();
 
-        $user = User::find($data['user']);
+        /** @var User $user */
+        $user = auth()->user();
+        $user->store()->create($data);
 
-        $new_store= new Store();
-        $new_store->name = $data['name'];
-        $new_store->description = $data['description'];
-        $new_store->phone = $data['phone'];
-        $new_store->mobile_phone = $data['mobile_phone'];
-        $new_store->slug = $data['slug'];
-
-        $store = $user->store()->save($new_store);
         flash('Loja Criada com Sucesso')->success();
         return redirect()->route('admin.stores.index');
-
     }
 
     /**
@@ -72,12 +65,7 @@ class StoreController extends Controller
         $data = $request->all();
 
         $store = Store::find($store);
-        $store->name = $data['name'];
-        $store->description = $data['description'];
-        $store->phone = $data['phone'];
-        $store->mobile_phone = $data['mobile_phone'];
-        $store->slug = $data['slug'];
-        $store->update();
+        $store->update($data);
 
         flash('Loja Atualizada com Sucesso')->success();
         return redirect()->route('admin.stores.index');
