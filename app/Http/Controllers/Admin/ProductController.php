@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Store;
 use Illuminate\Http\Request;
@@ -22,10 +23,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->product->paginate(10);
+        $userStore = auth()->user()->store;
+        $products = $userStore->products()->paginate(10);
 
         return view('admin.products.index',compact('products'));
-
     }
 
     /**
@@ -33,8 +34,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $stores = Store::all(['id','name']);
-        return view('admin.products.create',compact('stores'));
+        $categories = Category::all(['id','name']);
+        return view('admin.products.create',compact('categories'));
     }
 
     /**
@@ -46,8 +47,11 @@ class ProductController extends Controller
         $data = $request->all();
 
         /** @var Store $store */
-        $store = Store::find($data['store']);
-        $store->products()->create($data);
+//        $store = Store::find($data['store']);
+        $store = auth()->user()->store;
+        $product = $store->products()->create($data);
+
+        $product->categories()->sync($data['categories']);
 
         flash('Produto Criado com Sucesso')->success();
         return redirect()->route('admin.products.index');
@@ -61,9 +65,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all(['id','name']);
+
         $product = Product::findOrFail($id);
         $stores = Store::all();
-        return view('admin.products.edit',compact('product','stores'));
+        return view('admin.products.edit',compact('product','categories'));
     }
 
     /**
@@ -77,6 +83,7 @@ class ProductController extends Controller
 
         $products = Product::findOrFail($id);
         $products->update($data);
+        $products->categories()->sync($data['categories']);
 
         flash('Produto Alterado com Sucesso')->success();
         return redirect()->route('admin.products.index');

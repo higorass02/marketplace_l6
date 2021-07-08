@@ -10,14 +10,21 @@ use App\Http\Requests\StoreRequest;
 
 class StoreController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('user.has.store')->only(['create','store']);
+    }
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $stores = \App\Store::paginate(10);
+        //$stores = \App\Store::paginate(10);
+        $store = auth()->user()->store;
+
         //return $store;
-        return view('admin.stores.index',compact('stores'));
+        return view('admin.stores.index',compact('store'));
     }
 
     /**

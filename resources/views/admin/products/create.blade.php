@@ -30,7 +30,7 @@
 
         <div class="form-group">
             <label for="">Conteúdo</label>
-            <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="body" cols="30" rows="10"></textarea>
+            <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="body" cols="30" rows="10">{{old('body')}}</textarea>
 
             @error('body')
             <div class="invalid-feedback">
@@ -51,17 +51,18 @@
         </div>
 
         <div class="form-group">
-            <label for="">Slug</label>
-            <input class="form-control " type="text" name="slug" id="slug" value="{{old('slug')}}">
+            <label for="">Categorias</label>
+            <select name="categories[]" id="categories" class="form-control" multiple>
+                @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{ $category->name }}</option>
+                @endforeach
+
+            </select>
         </div>
 
         <div class="form-group">
-            <label for="">Lojas</label>
-            <select class="form-control" name="store" id="store">
-                @foreach($stores as $store)
-                    <option value="{{$store->id}}">{{$store->name}}</option>
-                @endforeach
-            </select>
+            <label for="">Slug</label>
+            <input class="form-control " type="text" name="slug" id="slug" value="{{old('slug')}}">
         </div>
 
         <div class="form-group">
