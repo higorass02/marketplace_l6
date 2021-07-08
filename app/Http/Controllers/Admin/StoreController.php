@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Store;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRequest;
 
 class StoreController extends Controller
 {
@@ -29,10 +30,10 @@ class StoreController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param StoreRequest $request
      * @return mixed
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->all();
 
@@ -56,11 +57,11 @@ class StoreController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param StoreRequest $request
      * @param $store
      * @return mixed
      */
-    public function update(Request $request, $store)
+    public function update(StoreRequest $request, $store)
     {
         $data = $request->all();
 

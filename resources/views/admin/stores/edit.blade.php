@@ -8,22 +8,46 @@
         @method('PUT')
         <div class="form-group">
             <label for="">Nome da Loja</label>
-            <input class="form-control" type="text" name="name" id="name" value="{{$store->name}}">
+            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{$store->name}}">
+
+            @error('name')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="">Descrição</label>
-            <input class="form-control" type="text" name="description" id="description" value="{{$store->description}}">
+            <input class="form-control @error('description') is-invalid @enderror" type="text" name="description" id="description" value="{{$store->description}}">
+
+            @error('description')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="">Telefone</label>
-            <input class="form-control" type="text" name="phone" id="phone" value="{{$store->phone}}">
+            <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" id="phone" value="{{$store->phone}}">
+
+            @error('phone')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="">Celular/Whattsup</label>
-            <input class="form-control" type="text" name="mobile_phone" id="mobile_phone" value="{{$store->mobile_phone}}">
+            <input class="form-control @error('mobile_phone') is-invalid @enderror" type="text" name="mobile_phone" id="mobile_phone" value="{{$store->mobile_phone}}">
+
+            @error('mobile_phone')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
 

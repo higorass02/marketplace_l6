@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Store;
 use Illuminate\Http\Request;
 use \App\Product;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -37,10 +38,10 @@ class ProductController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param ProductRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $data = $request->all();
 
@@ -66,11 +67,11 @@ class ProductController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param ProductRequest $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         $data = $request->all();
 

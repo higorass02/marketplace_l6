@@ -10,22 +10,40 @@
         @method('PUT')
         <div class="form-group">
             <label for="">Nome do Produto</label>
-            <input class="form-control" type="text" name="name" id="name" value="{{$product->name}}">
+            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{$product->name}}">
+
+            @error('name')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="">Descrição</label>
-            <input class="form-control" type="text" name="description" id="description" value="{{$product->description}}">
+            <input class="form-control @error('description') is-invalid @enderror" type="text" name="description" id="description" value="{{$product->description}}">
+
+            @error('description')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="">Conteúdo</label>
-            <textarea class="form-control" name="body" id="body" cols="30" rows="10">{{$product->body}}</textarea>
+            <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="body" cols="30" rows="10">{{$product->body}}</textarea>
         </div>
 
         <div class="form-group">
             <label for="">Preço</label>
-            <input class="form-control" type="text" name="price" id="price" value="{{$product->price}}">
+            <input class="form-control @error('price') is-invalid @enderror" type="text" name="price" id="price" value="{{$product->price}}">
+
+            @error('price')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">

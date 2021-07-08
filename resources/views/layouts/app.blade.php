@@ -21,11 +21,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 @auth()
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item @if (request()->is('stores')) active @endif">
+                        <li class="nav-item @if (request()->is('admin/stores*')) active @endif">
                             <a class="nav-link" aria-current="page" href="{{ route('admin.stores.index') }}">Lojas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @if (request()->is('products')) active @endif" href="{{ route('admin.products.index') }}">Produtos</a>
+                            <a class="nav-link @if (request()->is('admin/products*')) active @endif" href="{{ route('admin.products.index') }}">Produtos</a>
                         </li>
                     </ul>
                     <div class="my-2 my-lg-0">

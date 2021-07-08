@@ -8,28 +8,53 @@
 
         <div class="form-group">
             <label for="">Nome da Loja</label>
-            <input class="form-control" type="text" name="name" id="name">
+            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{old('name')}}">
+
+            @error('name')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
+
 
         <div class="form-group">
             <label for="">Descrição</label>
-            <input class="form-control" type="text" name="description" id="description">
+            <input class="form-control @error('description') is-invalid @enderror" type="text" name="description" id="description" value="{{old('description')}}">
+
+            @error('description')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
+
 
         <div class="form-group">
             <label for="">Telefone</label>
-            <input class="form-control" type="text" name="phone" id="phone">
+            <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" id="phone" value="{{old('phone')}}">
+
+            @error('phone')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="">Celular/Whattsup</label>
-            <input class="form-control" type="text" name="mobile_phone" id="mobile_phone">
-        </div>
+            <input class="form-control @error('mobile_phone') is-invalid @enderror" type="text" name="mobile_phone" id="mobile_phone" value="{{old('mobile_phone')}}">
 
+            @error('mobile_phone')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
+        </div>
 
         <div class="form-group">
             <label for="">Slug</label>
-            <input class="form-control" type="text" name="slug" id="slug">
+            <input class="form-control" type="text" name="slug" id="slug" value="{{old('slug')}}">
         </div>
 
         <div class="form-group">
