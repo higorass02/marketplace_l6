@@ -8,11 +8,12 @@ use App\Store;
 use Illuminate\Http\Request;
 use \App\Product;
 use App\Http\Requests\ProductRequest;
+use App\Traits\UploadTrait;
 
 class ProductController extends Controller
 {
     private $product;
-
+    use UploadTrait;
     public function __construct(Product $product)
     {
         $this->product = $product;
@@ -53,7 +54,7 @@ class ProductController extends Controller
         $product->categories()->sync($data['categories']);
 
         if($request->hasFile('photos')){
-            $images = $this->imageUpload($request,'image');
+            $images = $this->imageUpload($request->file('photos'),'image');
 
             $product->photos()->createMany($images);
         }
@@ -91,7 +92,7 @@ class ProductController extends Controller
         $product->categories()->sync($data['categories']);
 
         if($request->hasFile('photos')){
-            $images = $this->imageUpload($request,'image');
+            $images = $this->imageUpload($request->file('photos'),'image');
 
             $product->photos()->createMany($images);
         }
@@ -116,13 +117,5 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index');
     }
 
-    public function imageUpload(Request $request,$imageColumn){
-        $images = $request->file('photos');
 
-        $uploadsImages = [];
-        foreach ($images as $image){
-            $uploadsImages[] =[$imageColumn => $image->store('products','public')];
-        }
-        return $uploadsImages;
-    }
 }

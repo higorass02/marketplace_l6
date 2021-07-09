@@ -28,12 +28,14 @@ class StoreRequest extends FormRequest
             'description'   => 'required|min:10',
             'phone'         => 'required|',
             'mobile_phone'  => 'required|',
+            'logo'          => 'image',
         ];
     }
     public function messages(){
         return [
-            'min' => 'O campo deve possuir no minimo :min caracteres',
-            'required' => 'Este campo é obrigatório'
+            'min'       => 'O campo deve possuir no minimo :min caracteres',
+            'required'  => 'Este campo é obrigatório',
+            'image'     => 'Arquivo não é uma imagem válida!'
         ];
     }
 }
