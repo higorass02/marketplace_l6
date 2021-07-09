@@ -46,12 +46,17 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
-        /** @var Store $store */
-//        $store = Store::find($data['store']);
         $store = auth()->user()->store;
+        /** @var Product $product */
         $product = $store->products()->create($data);
 
         $product->categories()->sync($data['categories']);
+
+        if($request->hasFile('photos')){
+            $images = $this->imageUpload($request,'image');
+
+            $product->photos()->createMany($images);
+        }
 
         flash('Produto Criado com Sucesso')->success();
         return redirect()->route('admin.products.index');
@@ -81,9 +86,15 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
-        $products = Product::findOrFail($id);
-        $products->update($data);
-        $products->categories()->sync($data['categories']);
+        $product = Product::findOrFail($id);
+        $product->update($data);
+        $product->categories()->sync($data['categories']);
+
+        if($request->hasFile('photos')){
+            $images = $this->imageUpload($request,'image');
+
+            $product->photos()->createMany($images);
+        }
 
         flash('Produto Alterado com Sucesso')->success();
         return redirect()->route('admin.products.index');
@@ -103,5 +114,15 @@ class ProductController extends Controller
 
         flash('Produto Excluido com Sucesso')->success();
         return redirect()->route('admin.products.index');
+    }
+
+    public function imageUpload(Request $request,$imageColumn){
+        $images = $request->file('photos');
+
+        $uploadsImages = [];
+        foreach ($images as $image){
+            $uploadsImages[] =[$imageColumn => $image->store('products','public')];
+        }
+        return $uploadsImages;
     }
 }
