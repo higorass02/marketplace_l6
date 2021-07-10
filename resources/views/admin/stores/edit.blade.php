@@ -65,11 +65,6 @@
         </div>
 
         <div class="form-group">
-            <label for="">Slug</label>
-            <input class="form-control" type="text" name="slug" id="slug" value="{{$store->slug}}">
-        </div>
-
-        <div class="form-group">
             <button type="submit" class="btn-success btn-lg">
                 Atualizar Loja
             </button>

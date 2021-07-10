@@ -57,30 +57,14 @@
 
         <div class="form-group">
             <label for="">Fotos do Produto</label>
-            <input type="file" name="photos[]" class="form-control  @error('photos') is-invalid @enderror" multiple>
+            <input type="file" name="photos[]" class="form-control  @error('photos.*') is-invalid @enderror" multiple>
 
-            @error('photos')
+            @error('photos.*')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
             @enderror
         </div>
-
-        <div class="form-group">
-            <label for="">Slug</label>
-            <input class="form-control" type="text" name="slug" id="slug" value="{{$product->slug}}">
-        </div>
-
-{{--        <div class="form-group">--}}
-{{--            <label for="">Lojas</label>--}}
-{{--            <select class="form-control" name="store" id="store">--}}
-{{--                @foreach($stores as $store)--}}
-{{--                    <option--}}
-{{--                        @if ($product->stores == $store) {{'seleted'}} @endif --}}
-{{--                        value="{{$store->id}}">{{$store->name}}</option>--}}
-{{--                @endforeach--}}
-{{--            </select>--}}
-{{--        </div>--}}
 
         <div class="form-group">
             <button type="submit" class="btn-success btn-lg">

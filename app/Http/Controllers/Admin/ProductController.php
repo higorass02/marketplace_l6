@@ -47,11 +47,15 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
+        $categories = $request->get('categories',null);
+
         $store = auth()->user()->store;
         /** @var Product $product */
         $product = $store->products()->create($data);
 
-        $product->categories()->sync($data['categories']);
+        if(!is_null($categories)) {
+            $product->categories()->sync($categories);
+        }
 
         if($request->hasFile('photos')){
             $images = $this->imageUpload($request->file('photos'),'image');
@@ -87,9 +91,14 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
+        $categories = $request->get('categories',null);
+
         $product = Product::findOrFail($id);
         $product->update($data);
-        $product->categories()->sync($data['categories']);
+
+        if(!is_null($categories)){
+            $product->categories()->sync($categories);
+        }
 
         if($request->hasFile('photos')){
             $images = $this->imageUpload($request->file('photos'),'image');
